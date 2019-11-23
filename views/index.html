@@ -13,6 +13,10 @@
   <title>Entry Management</title>
 </head>
 <style>
+  .bg-custom {
+    background-color: #26a69a;
+  }
+
   .nav-link {
     padding: 0 0.5rem !important;
   }
@@ -35,7 +39,7 @@
 </style>
 
 <body>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-custom">
     <a class="navbar-brand" href="#">Entry Management</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
       aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -54,37 +58,64 @@
   </nav>
   <div class="container">
     <div class="inner-container">
-      <div class="card" style="min-width: 450px;">
+      <div class="card" style="min-width: 80%;">
         <div class="card-body">
-          <h3 class="card-title text-center">Entry form</h3>
+          <h3 class="text-center"><strong>Entry form</strong></h3>
           <form id="entryForm">
-            <div class="form-group">
-              <label for="name">Name</label>
-              <input type="text" name="name" id="name" class="form-control" minlength="3" placeholder="John Doe">
+            <div class="row">
+              <div class="col sm-12 md-6 lg-6">
+                <h5>Visitor Info</h5>
+                <div class="form-group">
+                  <label for="name">Name</label>
+                  <input type="text" name="name" id="name" class="form-control" minlength="3" placeholder="John Doe"
+                    required>
+                </div>
+                <div class="form-group">
+                  <label for="email">Email</label>
+                  <input type="email" name="email" id="email" placeholder="eg. example@abc.com" class="form-control"
+                    required>
+                  <small>Just for notificaiton purpose</small>
+                </div>
+                <div class="form-group">
+                  <label for="phone">Phone</label>
+                  <input type="text" name="phone" id="phone" class="form-control" placeholder="eg. +919988776655"
+                    minlength="10" maxlength="12" required>
+                  <small>Just for notificaiton purpose</small>
+                </div>
+                <div class="form-group">
+                  <label for="checkin">Check-In Time</label>
+                  <!-- <input type="datetime-local" name="checkin" id="checkinTime" class="form-control"> -->
+                  <input type="text" class="timepicker" id="checkin" placeholder="Time of checkin in" required>
+                </div>
+                <div class="form-group">
+                  <label for="checkout">Check-Out Time</label>
+                  <!-- <input type="datetime-local" name="checkout" id="checkoutTime" class="form-control"> -->
+                  <input type="text" class="timepicker" id="checkout" placeholder="Time of checking out" required>
+                </div>
+              </div>
+              <div class="col sm-12 md-6 lg-6">
+                <h5>Host Info</h5>
+                <div class="form-group">
+                  <label for="name">Host Name</label>
+                  <input type="text" name="name" id="host-name" class="form-control" minlength="3"
+                    placeholder="John Doe" required>
+                </div>
+                <div class="form-group">
+                  <label for="email">Host Email</label>
+                  <input type="email" name="email" id="host-email" placeholder="eg. example@abc.com"
+                    class="form-control" required>
+                  <small>Just for notificaiton purpose</small>
+                </div>
+                <div class="form-group">
+                  <label for="phone">Host Phone</label>
+                  <input type="text" name="phone" id="host-phone" class="form-control" placeholder="eg. +919988776655"
+                    minlength="10" maxlength="12" required>
+                  <small>Just for notificaiton purpose</small>
+                </div>
+              </div>
             </div>
-            <div class="form-group">
-              <label for="email">Email</label>
-              <input type="email" name="email" id="email" placeholder="eg. example@abc.com" class="form-control">
-              <small>Just for notificaiton purpose</small>
-            </div>
-            <div class="form-group">
-              <label for="phone">Phone</label>
-              <input type="text" name="phone" id="phone" class="form-control" placeholder="eg. +919988776655"
-                minlength="10" maxlength="12">
-              <small>Just for notificaiton purpose</small>
-            </div>
-            <div class="form-group">
-              <label for="checkin">Check-In Time</label>
-              <!-- <input type="datetime-local" name="checkin" id="checkinTime" class="form-control"> -->
-              <input type="text" class="timepicker">
-            </div>
-            <div class="form-group">
-              <label for="checkout">Check-Out Time</label>
-              <!-- <input type="datetime-local" name="checkout" id="checkoutTime" class="form-control"> -->
-              <input type="text" class="timepicker">
-            </div>
-            <div class="form-group">
-              <input type="submit" class="btn btn-primary rounded-pill" style="width: 100%;">
+            <div class="form-group text-center">
+              <input type="submit" class="btn btn-primary rounded-pill" style="width: 200px;">
             </div>
           </form>
         </div>
@@ -95,25 +126,64 @@
   <script>
     (function () {
       document.addEventListener('DOMContentLoaded', function () {
-        console.log("here")
         var elems = document.querySelectorAll('.timepicker');
-        var instances = M.Timepicker.init(elems, {});
+        var instances = M.Timepicker.init(elems, {
+          defaultTime: "now",
+          showClearBtn: true,
+          twelveHour: false,
+          fromNow: 0
+        });
       });
     })();
-    let postData = () => {
-      var XHR = new XMLHttpRequest();
-      var formData = new FormData(form);
-      console.log(formData);
-      XHR.addEventListener("load", event => alert(event.target.responseText));
-      XHR.addEventListener("error", event => alert('Something went wrong'))
-      // XHR.open("POST", "http://localhost:1200/entry", true);
-      // XHR.send(formData);
+    let postData = async () => {
+      let name = document.getElementById("name").value;
+      let email = document.getElementById("email").value;
+      let phone = document.getElementById("phone").value;
+      let checkin = document.getElementById("checkin").value;
+      let checkout = document.getElementById("checkout").value;
+      let hostName = document.getElementById("host-name").value;
+      let hostEmail = document.getElementById("host-email").value;
+      let hostPhone = document.getElementById("host-phone").value;
+      let date = new Date();
+      checkin = `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()} ${checkin}:00`;
+      checkout = `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()} ${checkout}:00`;
+      let body = {
+        visitor: {
+          name,
+          email,
+          phone,
+          checkin,
+          checkout,
+        },
+        host: {
+          name: hostName,
+          email: hostEmail,
+          phone: hostPhone
+        }
+
+      };
+      const URL = "http://localhost:1200/entry"
+      try {
+        const response = await fetch(URL, {
+          method: 'POST',
+          body: JSON.stringify(body),
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        });
+        const json = await response.json();
+        alert(json.message);
+      } catch (error) {
+        alert(error);
+      }
+
     }
     var form = document.getElementById("entryForm");
     form.addEventListener("submit", function (event) {
       event.preventDefault();
       postData();
       alert("Form submitted");
+      form.reset();
     })
   </script>
 </body>

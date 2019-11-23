@@ -17,17 +17,19 @@
     padding: 0 0.5rem !important;
   }
 
+  .bg-custom {
+    background-color: #26a69a;
+  }
+
   .inner-container {
     min-height: calc(100vh - 70px);
     margin: auto;
     display: flex;
-    /* justify-content: center; */
-    /* align-items: center; */
   }
 </style>
 
 <body>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-custom">
     <a class="navbar-brand" href="#">Entry Management</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
       aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -59,25 +61,26 @@
                   <th scope="col">Phone</th>
                   <th scope="col">Check-In</th>
                   <th scope="col">Check-Out</th>
+                  <th scope="col">Host Detail</th>
                 </tr>
               </thead>
-              <tbody>
-                <tr>
-                  <th scope="row">1</th>
-                  <td>Mark</td>
-                  <td>example@abc.com</td>
-                  <td>+919988776655</td>
-                  <td>some-time</td>
-                  <td>some-time</td>
-                </tr>
-                <tr>
+              <tbody id="tbody">
+                <!-- <tr>
+                    <th scope="row">1</th>
+                    <td>Mark</td>
+                    <td>example@abc.com</td>
+                    <td>+919988776655</td>
+                    <td>some-time</td>
+                    <td>some-time</td>
+                  </tr>
+                  <tr>
                   <th scope="row">2</th>
                   <td>Jacob</td>
                   <td>example@abc.com</td>
                   <td>+919988776655</td>
                   <td>some-time</td>
                   <td>some-time</td>
-                </tr>
+                </tr> -->
               </tbody>
             </table>
           </div>
@@ -85,8 +88,27 @@
       </div>
     </div>
   </div>
-
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  <script>
+    (async () => {
+      const response = await fetch("http://localhost:1200/entry");
+      const entries = await response.json();
+      let tbody = document.getElementById("tbody");
+      tbody.innerHTML = ``;
+      entries.forEach((entry, index) => {
+        tbody.innerHTML += `
+          <tr>
+            <th scope="row">${index+1}</th>
+            <td>${entry.visitor.name}</td>
+            <td>${entry.visitor.email}</td>
+            <td>${entry.visitor.phone}</td>
+            <td>${entry.visitor.checkin}</td>
+            <td>${entry.visitor.checkout}</td>
+            <td>${entry.host.name} | ${entry.host.email}<td/>
+          </tr>
+          `;
+      });
+    })();
+  </script>
 </body>
 
 </html>
