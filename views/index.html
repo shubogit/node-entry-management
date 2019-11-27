@@ -77,19 +77,17 @@
                   <small>Just for notificaiton purpose</small>
                 </div>
                 <div class="form-group">
-                  <label for="phone">Phone</label>
+                  <label for="phone">Phone (must contain +91)</label>
                   <input type="text" name="phone" id="phone" class="form-control" placeholder="eg. +919988776655"
-                    minlength="10" maxlength="12" required>
+                    length="13" required>
                   <small>Just for notificaiton purpose</small>
                 </div>
                 <div class="form-group">
                   <label for="checkin">Check-In Time</label>
-                  <!-- <input type="datetime-local" name="checkin" id="checkinTime" class="form-control"> -->
                   <input type="text" class="timepicker" id="checkin" placeholder="Time of checkin in" required>
                 </div>
                 <div class="form-group">
                   <label for="checkout">Check-Out Time</label>
-                  <!-- <input type="datetime-local" name="checkout" id="checkoutTime" class="form-control"> -->
                   <input type="text" class="timepicker" id="checkout" placeholder="Time of checking out" required>
                 </div>
               </div>
@@ -107,9 +105,9 @@
                   <small>Just for notificaiton purpose</small>
                 </div>
                 <div class="form-group">
-                  <label for="phone">Host Phone</label>
+                  <label for="phone">Host Phone (must contain +91)</label>
                   <input type="text" name="phone" id="host-phone" class="form-control" placeholder="eg. +919988776655"
-                    minlength="10" maxlength="12" required>
+                    length="13" required>
                   <small>Just for notificaiton purpose</small>
                 </div>
               </div>
@@ -160,8 +158,8 @@
           email: hostEmail,
           phone: hostPhone
         }
-
       };
+      console.log(body);
       const URL = "http://localhost:1200/entry"
       try {
         const response = await fetch(URL, {
@@ -183,7 +181,7 @@
       event.preventDefault();
       postData();
       alert("Form submitted");
-      form.reset();
+      // form.reset();
     })
   </script>
 </body>

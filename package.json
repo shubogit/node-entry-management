@@ -11,8 +11,11 @@
   "dependencies": {
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
+    "cron": "^1.7.2",
     "express": "^4.17.1",
+    "nodemailer": "^6.3.1",
     "path": "^0.12.7",
+    "twilio": "^3.37.1",
     "uniqid": "^5.1.0"
   }
 }
