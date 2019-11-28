@@ -16,7 +16,7 @@
 - A gmail account, with **email, password and allowed less secured app turned on in security settings**. (For sending email)
 - A twilio account, **with account-Sid, auth-Token and twilio - phone number** (For sending sms).
 
-> **Note: For twilio trail accounts you need to verify phone number before sending sms.**
+> **Note: For twilio trial accounts you need to verify phone number before sending sms.**
 
 ## Installation
 
